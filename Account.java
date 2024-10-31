@@ -6,20 +6,23 @@ public class Account {
     }
     
     public boolean withdraw(int amount){
-        if(amount > this.balance || amount <= 0){
+        int newAmount = this.balance += amount;
+        if(newAmount < 0){
             return false;
         } else{
-            this.balance -= amount;
+            this.balance = newAmount;
             return true;
         }
     }
 
     public boolean deposit(int amount){
-        if (amount <= 0){
+        int newAmount = this.balance += amount;
+        if(newAmount < 0){
             return false;
-        }
-        this.balance += amount;
+        } else{
+            this.balance = newAmount;
             return true;
+        }
     }
 
 }

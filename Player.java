@@ -2,26 +2,25 @@ public class Player {
     private String name;
     private Account account;
     
-    public Player(String name, Account account) {
+    public Player(String name) {
         this.name = name;
         this.account = new Account();
-
     }
 
     public String getName(){
-        return name;
+        return this.name;
     }  
 
     public boolean deposit(int amount) {
-        return account.deposit(amount);
+        return this.account.deposit(amount);
     }
 
     public boolean withdraw(int amount) {
-        return account.withdraw(amount);
+        return this.account.withdraw(amount);
     }
 
     public int getBalance() {
-        return account.getBalance();
+        return this.account.getBalance();
     }
     
 }

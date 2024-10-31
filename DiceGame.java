@@ -6,29 +6,50 @@ class DiceGame {
     public static void main (String[]args){
         s = new Scanner(System.in);
 
+        while (true) {
+            startGame();
+            while (true) {
+                playRound(player1);
+                if (player1.getBalance() > 3000){
+                    congratulateWinner(player1);
+                    break;
+                }
+                playRound(player2);
+                if (player2.getBalance() > 3000){
+                    congratulateWinner(player2);
+                    break;
+                }
+            }
+            System.out.println("The game is over");
+            System.out.println("Do you want a rematch? (Y/N)");
+            var respons = s.nextLine();
+            if (!respons.equalsIgnoreCase("Y")){
+                break; //Ends program if the condition isnt met.
+            }
+        }
+        System.out.println("Thank you for playing - Goodbye!");
+        s.close();
     }
 
-
-    
     private static void startGame(){
         //get player names from user
-        System.out.println("The game has begun. Buckle up!")
+        System.out.println("The game has begun. Buckle up!");
         System.out.println("Please input the username of player 1");
-        player1=new Player(s.nextline());
+        player1=new Player(s.nextLine());
         System.out.println("Please input the username of player 2");
-        player2=new Player(s.nextline());
+        player2=new Player(s.nextLine());
     }
 
-    private void congratulateWinner(Player player){
-        System.out.println("Congratulations " + player.getName() + "you won and are now rich :D");
+    private static void congratulateWinner(Player player){
+        System.out.println("Congratulations " + player.getName() + " you won and are now rich :D");
     }
 
-    private void playRound(Player player){
+    private static void playRound(Player player){
         Dice dice1=new Dice();
         Dice dice2=new Dice();
 
         do {
-            System.out.println(player.getname() + " press enter to roll");
+            System.out.println(player.getName() + " press enter to roll");
             s.nextLine();
 
             dice1.roll();
@@ -37,26 +58,26 @@ class DiceGame {
             System.out.println("You rolled " + dice1.getFaceValue() + " with your first dice");
             System.out.println("You rolled " + dice2.getFaceValue() + " with your second dice");
 
-            if ((dice1.getFaceValue() + dice2.getFaceValue()) == 10) {
-                player.withdraw(getField(getFaceValue(dice1) + getField(getFaceValue(dice2))));
-                System.out.println(toString(getFaceValue(dice1) + getFaceValue(dice2)));
+            int diceSum = dice1.getFaceValue() + dice2.getFaceValue();
+            int fieldValue = Board.getField(diceSum);
 
-            } else if (getField(getFaceValue(dice1) + getField(getFaceValue(dice2)))<0){
-                if(player.withdraw(getField(dice1, dice2))) {
-                player.withdraw(getField(dice1, dice2));
-                System.out.println(toString(dice1, dice2));
+            System.out.println(Board.toString(diceSum));
+
+            if (diceSum == 10) {
+                if (!player.withdraw(fieldValue)){
+                    System.out.println("Your balance is too low so the withdraw failed");
+                } 
+            } else if (fieldValue < 0){
+                if(!player.withdraw(fieldValue)) {
+                    System.out.println("Your balance is too low so the withdraw failed");
+                }
                 break;
-            } else {
-                System.out.println("Your balance is too low and the game is now aborted. \nThank you for playing!");
-                break;
-            }
-            
-            } else if (getField(getFaceValue(dice1) + getField(getFaceValue(dice2)))>0) {
-                player.deposit(getField(dice1, dice2));
-                System.out.println(toString(dice1, dice2));
+            } else if (fieldValue >= 0) {
+                player.deposit(fieldValue);
                 break;
             } 
             
         } while (true);
+        System.out.println(player.getName() + " your balance is now: " + player.getBalance() + System.lineSeparator());
     }
 }
