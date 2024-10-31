@@ -11,12 +11,12 @@ class DiceGame {
             player2.account.resetBalance();
             while (true) {
                 playRound(player1);
-                if (player1.account.getBalance() > 3000){
+                if (player1.account.getBalance() >= 3000){
                     congratulateWinner(player1);
                     break;
                 }
                 playRound(player2);
-                if (player2.account.getBalance() > 3000){
+                if (player2.account.getBalance() >= 3000){
                     congratulateWinner(player2);
                     break;
                 }

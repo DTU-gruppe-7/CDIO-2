@@ -46,7 +46,7 @@ public static String toString(int faceValues) {
         case 7:
             return "You are in a monastery and nothing happens";
         case 8:
-            return "You get lost in a dark cave and must pay 70 to out";
+            return "You get lost in a dark cave and must pay 70 to get out";
         case 9:
             return "You arrived to the Huts in the mountain and gained 60";
         case 10:
