@@ -27,4 +27,8 @@ public class Account {
         }
     }
 
+    public void resetBalance(){
+        this.balance = 1000;
+    }
+
 }

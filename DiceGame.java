@@ -5,9 +5,10 @@ class DiceGame {
     private static Scanner s;
     public static void main (String[]args){
         s = new Scanner(System.in);
-
+        startGame();
         while (true) {
-            startGame();
+            player1.account.resetBalance();
+            player2.account.resetBalance();
             while (true) {
                 playRound(player1);
                 if (player1.account.getBalance() > 3000){
