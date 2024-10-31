@@ -6,7 +6,8 @@ public class Account {
     }
     
     public boolean withdraw(int amount){
-        int newAmount = this.balance += amount;
+        int tempBalance = this.balance;
+        int newAmount = tempBalance += amount;
         if(newAmount < 0){
             return false;
         } else{
@@ -16,7 +17,8 @@ public class Account {
     }
 
     public boolean deposit(int amount){
-        int newAmount = this.balance += amount;
+        int tempBalance = this.balance;
+        int newAmount = tempBalance += amount;
         if(newAmount < 0){
             return false;
         } else{

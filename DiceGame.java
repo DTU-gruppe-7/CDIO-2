@@ -10,12 +10,12 @@ class DiceGame {
             startGame();
             while (true) {
                 playRound(player1);
-                if (player1.getBalance() > 3000){
+                if (player1.account.getBalance() > 3000){
                     congratulateWinner(player1);
                     break;
                 }
                 playRound(player2);
-                if (player2.getBalance() > 3000){
+                if (player2.account.getBalance() > 3000){
                     congratulateWinner(player2);
                     break;
                 }
@@ -64,20 +64,22 @@ class DiceGame {
             System.out.println(Board.toString(diceSum));
 
             if (diceSum == 10) {
-                if (!player.withdraw(fieldValue)){
+                if (!player.account.withdraw(fieldValue)){
                     System.out.println("Your balance is too low so the withdraw failed");
-                } 
+                }
+                System.out.println(player.getName() + " your temp balance is now: " + player.account.getBalance() + System.lineSeparator()); 
             } else if (fieldValue < 0){
-                if(!player.withdraw(fieldValue)) {
+                if(!player.account.withdraw(fieldValue)) {
                     System.out.println("Your balance is too low so the withdraw failed");
+                    break;
                 }
                 break;
             } else if (fieldValue >= 0) {
-                player.deposit(fieldValue);
+                player.account.deposit(fieldValue);
                 break;
             } 
             
         } while (true);
-        System.out.println(player.getName() + " your balance is now: " + player.getBalance() + System.lineSeparator());
+        System.out.println(player.getName() + " your balance is now: " + player.account.getBalance() + System.lineSeparator());
     }
 }
